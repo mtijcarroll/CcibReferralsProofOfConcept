@@ -1,8 +1,8 @@
-// Dynamic referral destination dropdowns for the create-referral form.
+// Dynamic referral recipient dropdowns for the create-referral form.
 // The "Send to program" checkbox switches every dropdown between JD numbers and program (county) names.
 document.addEventListener('partials:loaded', () => {
     const container = document.getElementById('jdContainer');
-    const addBtn = document.getElementById('addDestinationBtn');
+    const addBtn = document.getElementById('addRecipientBtn');
     const addLabel = addBtn?.querySelector('[data-add-label]');
     const programToggle = document.getElementById('sendToProgramToggle');
     if (!container || !addBtn || !programToggle) return;
@@ -25,7 +25,7 @@ document.addEventListener('partials:loaded', () => {
 
     function populateSelect(select) {
         select.innerHTML = '';
-        const placeholder = new Option(`Select a ${modeWord()}…`, '', true, true);
+        const placeholder = new Option(`Select a recipient…`, '', true, true);
         placeholder.disabled = true;
         select.add(placeholder);
         optionValues().forEach((value) => select.add(new Option(value, value)));
@@ -63,10 +63,10 @@ document.addEventListener('partials:loaded', () => {
     // Re-labels and re-ids every column to match its current position and mode.
     function renumber() {
         container.querySelectorAll('.jd-col').forEach((col, i) => {
-            const id = `destination${i + 1}`;
+            const id = `recipient${i + 1}`;
             const label = col.querySelector('.form-label');
             const select = col.querySelector('.jd-input');
-            label.textContent = `${ordinalLabel(i)} ${modeWord()}`;
+            label.textContent = `${ordinalLabel(i)} Recipient`;
             label.setAttribute('for', id);
             select.id = id;
         });
@@ -78,7 +78,6 @@ document.addEventListener('partials:loaded', () => {
     });
 
     programToggle.addEventListener('change', () => {
-        if (addLabel) addLabel.textContent = `Add ${modeWord()}`;
         container.querySelectorAll('.jd-input').forEach(populateSelect);
         renumber();
     });
