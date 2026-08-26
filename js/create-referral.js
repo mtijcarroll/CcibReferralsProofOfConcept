@@ -17,7 +17,6 @@ document.addEventListener('partials:loaded', () => {
     ];
 
     const isProgram = () => programToggle.checked;
-    const modeWord = () => (isProgram() ? 'Program' : 'JD');
     const ordinalLabel = (index) => ordinals[index] || `${index + 1}`;
 
     const optionValues = () =>
